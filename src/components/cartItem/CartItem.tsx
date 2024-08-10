@@ -3,7 +3,6 @@ import itemFotoURL from '../../assets/images/productImg.jpg'
 import { MainButton } from '../mainButton/MainButton'
 import plural from '../../utils/plural'
 
-const quantity = 1
 const productName = 'Essence Mascara Lash Princess'
 const productPrice = 110
 
