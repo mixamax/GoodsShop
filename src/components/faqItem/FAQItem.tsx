@@ -11,12 +11,12 @@ export function FAQItem({ question, content }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <div className={styles.question}>
+      <div
+        className={styles.question}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
         <h3 className={styles['question-text']}>{question}</h3>
-        <button
-          className={styles['expand-btn']}
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
+        <button className={styles['expand-btn']}>
           <img
             className={`${styles.icon} ${isOpen ? styles.rotate : ''}`}
             src={iconURL}
