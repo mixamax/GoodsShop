@@ -6,9 +6,14 @@ import plural from '../../utils/plural'
 import { useNavigate } from 'react-router-dom'
 
 const productID = 1
-
 type Props = {
   quantity: number
+}
+//добавить дефолтную картинку
+const addDefaultImage = (
+  event: React.SyntheticEvent<HTMLImageElement, Event>
+) => {
+  event.currentTarget.src = imgURL
 }
 export function CatalogItem({ quantity }: Props) {
   const [hovered, setHovered] = useState(false)
@@ -42,6 +47,8 @@ export function CatalogItem({ quantity }: Props) {
             className={styles['catalogItem-img']}
             src={imgURL}
             alt="фото товара"
+            loading="lazy"
+            onError={addDefaultImage}
           />
           <figcaption
             className={`${styles['catalogItem-figcaption']} ${hovered && styles['catalogItem-figcaption_hovered']}`}

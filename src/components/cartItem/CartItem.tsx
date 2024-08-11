@@ -10,6 +10,12 @@ type Props = {
   quantity: number
 }
 
+//добавить дефолтную картинку
+const addDefaultImage = (
+  event: React.SyntheticEvent<HTMLImageElement, Event>
+) => {
+  event.currentTarget.src = itemFotoURL
+}
 export function CartItem({ quantity }: Props) {
   const isQuantity = quantity > 0
   return (
@@ -20,7 +26,13 @@ export function CartItem({ quantity }: Props) {
         className={`${styles['fotoAndDescription-container']} ${!isQuantity && styles['disabled']}`}
       >
         <div className={styles['foto-container']}>
-          <img className={styles['foto']} src={itemFotoURL} alt="фото товара" />
+          <img
+            className={styles['foto']}
+            src={itemFotoURL}
+            loading="lazy"
+            alt="фото товара"
+            onError={addDefaultImage}
+          />
         </div>
         <div className={styles['description-container']}>
           <span className={styles['title']}>{productName}</span>
