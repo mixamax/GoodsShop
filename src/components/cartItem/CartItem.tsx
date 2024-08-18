@@ -52,7 +52,11 @@ export function CartItem({ product }: Props) {
   )
 }
 
-function ButtonGroup({ quantity }: { quantity: ICartProduct['quantity'] }) {
+export function ButtonGroup({
+  quantity,
+}: {
+  quantity: ICartProduct['quantity']
+}) {
   return (
     <>
       {quantity > 0 ? (

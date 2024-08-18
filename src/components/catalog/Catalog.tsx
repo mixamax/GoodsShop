@@ -24,6 +24,7 @@ export function Catalog() {
   useEffect(() => {
     dispatch(setSearchValue(debouncedSearchValue))
   }, [debouncedSearchValue])
+
   if (error) return <h1>Something went wrong</h1>
   return (
     <section id="catalog" className={styles['catalog-container']}>

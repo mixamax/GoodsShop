@@ -2,6 +2,7 @@ import styles from './logoContainer.module.css'
 import cartIconURL from '../../assets/images/cartIcon.svg'
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../hooks/storeHooks'
+import { CartQuantity } from './cartQuantity.ts/CartQuantity'
 
 const logo = 'Goods4you'
 
@@ -59,9 +60,7 @@ function HeaderNavigation({ scrollToElement, navigate }: Navigation) {
             alt="корзина"
           />
           {totalItemsCount && (
-            <div className={styles['cart-header-quantity']}>
-              {totalItemsCount}
-            </div>
+            <CartQuantity totalItemsCount={totalItemsCount} />
           )}
         </li>
         <li>Johnson Smith</li>

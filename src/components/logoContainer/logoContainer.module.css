@@ -79,11 +79,12 @@
   border-radius: 50%;
   background-color: var(--button-main-bgcolor);
   font-size: 8px;
-  line-height: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: fit-content;
+  color: var(--light-color);
+  font: Jost, sans-serif;
 }
 
 @media screen and (max-width: 340px) {
