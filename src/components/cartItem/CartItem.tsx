@@ -2,12 +2,12 @@ import styles from './cartItem.module.css'
 import itemFotoURL from '../../assets/images/productImg.jpg'
 import { MainButton } from '../mainButton/MainButton'
 import plural from '../../utils/plural'
-
-const productName = 'Essence Mascara Lash Princess'
-const productPrice = 110
+import { ICartProduct } from '../../models/cartModel'
+import { getDiscountPrice } from '../../utils/getDiscountPrice'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
-  quantity: number
+  product: ICartProduct
 }
 
 //добавить дефолтную картинку
@@ -16,8 +16,9 @@ const addDefaultImage = (
 ) => {
   event.currentTarget.src = itemFotoURL
 }
-export function CartItem({ quantity }: Props) {
-  const isQuantity = quantity > 0
+export function CartItem({ product }: Props) {
+  const navigate = useNavigate()
+  const isQuantity = product.quantity > 0
   return (
     <div
       className={`${styles['cart-item-container']} ${!isQuantity && styles['noHover']}`}
@@ -28,23 +29,30 @@ export function CartItem({ quantity }: Props) {
         <div className={styles['foto-container']}>
           <img
             className={styles['foto']}
-            src={itemFotoURL}
+            src={product.thumbnail}
             loading="lazy"
             alt="фото товара"
             onError={addDefaultImage}
           />
         </div>
         <div className={styles['description-container']}>
-          <span className={styles['title']}>{productName}</span>
-          <span className={styles['price']}>${productPrice}</span>
+          <span
+            onClick={() => navigate(`/product/${product.id}`)}
+            className={styles['title']}
+          >
+            {product.title}
+          </span>
+          <span className={styles['price']}>
+            ${getDiscountPrice(product.price, product.discountPercentage)}
+          </span>
         </div>
       </div>
-      <ButtonGroup quantity={quantity} />
+      <ButtonGroup quantity={product.quantity} />
     </div>
   )
 }
 
-function ButtonGroup({ quantity }: Props) {
+function ButtonGroup({ quantity }: { quantity: ICartProduct['quantity'] }) {
   return (
     <>
       {quantity > 0 ? (

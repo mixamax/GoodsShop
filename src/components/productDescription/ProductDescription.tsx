@@ -1,49 +1,62 @@
 import { MainButton } from '../mainButton/MainButton'
 import styles from './productDescription.module.css'
+import { IProduct } from '../../models/productModel'
+import { getDiscountPrice } from '../../utils/getDiscountPrice'
+import plural from '../../utils/plural'
+import { useAppSelector } from '../../hooks/storeHooks'
 
-const title = 'Essence Mascara Lash Princess'
-const metaText = 'electronics, selfie accessories'
-const stars = [
-  { id: 1, active: true },
-  { id: 2, active: true },
-  { id: 3, active: true },
-  { id: 4, active: true },
-  { id: 5, active: false },
-]
-const stockText = 'In Stock - Only 5 left!'
-const textDescription =
-  'The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.'
+type Props = {
+  product: IProduct
+}
 
-export function ProductDescription() {
+export function ProductDescription({ product }: Props) {
+  const { cart } = useAppSelector((state) => state.cart)
+
+  const quantity =
+    cart?.products.find((item) => item.id === product.id)?.quantity || 0
+
+  const stars = Array.from({ length: 5 }, (_, index) => ({
+    id: index,
+    active: index < Math.round(product.rating),
+  }))
+
   return (
     <div className={styles['description-block-container']}>
       <div className={styles['description-title']}>
-        <h1 className={styles['title']}>{title}</h1>
+        <h1 className={styles['title']}>{product.title}</h1>
         <div className={styles['metadata']}>
           <div className={styles['rating']}>
             {stars.map((star) => (
               <Star key={star.id} active={star.active} />
             ))}
           </div>
-          <h6 className={styles['metadata-text']}>{metaText}</h6>
+          <h6 className={styles['metadata-text']}>{product.tags.join(', ')}</h6>
         </div>
-        <div className={styles['stock']}>{stockText}</div>
-        <p className={styles['description-text']}>{textDescription}</p>
+        <div
+          className={styles['stock']}
+        >{`In Stock - Only ${product.stock} left!`}</div>
+        <p className={styles['description-text']}>{product.description}</p>
         <div className={styles['other']}>
-          <span className={styles['other-text']}>1 month warranty</span>
-          <span className={styles['other-text']}>Ships in 1 month</span>
+          <span className={styles['other-text']}>
+            {product.warrantyInformation}
+          </span>
+          <span className={styles['other-text']}>
+            {product.shippingInformation}
+          </span>
         </div>
         <div className={styles['buy']}>
           <div className={styles['price-and-discount']}>
             <div className={styles['price-container']}>
-              <span className={styles['final-price']}>$7.17</span>
-              <span className={styles['old-price']}>$9.99</span>
+              <span className={styles['final-price']}>
+                ${getDiscountPrice(product.price, product.discountPercentage)}
+              </span>
+              <span className={styles['old-price']}>${product.price}</span>
             </div>
             <div className={styles['discount']}>
-              Your discount:&nbsp;<b>14.5%</b>
+              Your discount:&nbsp;<b>{product.discountPercentage}%</b>
             </div>
           </div>
-          <MainButton type="text" text="Add to cart" callBack={() => {}} />
+          <ButtonGroup quantity={quantity} />
         </div>
       </div>
     </div>
@@ -67,5 +80,33 @@ function Star({ active }: StarProps) {
         fill={active ? '#F14F4F' : '#D5D5D5'}
       />
     </svg>
+  )
+}
+
+function ButtonGroup({ quantity }: { quantity: number }) {
+  return (
+    <>
+      {quantity > 0 ? (
+        <div className={styles['product-btn-wrapper']}>
+          <MainButton
+            type="largeIcon"
+            icon="minus"
+            callBack={() => console.log('click minus')}
+          />
+          <span className={styles['product-quantity']}>
+            {quantity} {plural(quantity)}
+          </span>
+          <MainButton
+            type="largeIcon"
+            icon="plus"
+            callBack={() => console.log('click plus')}
+          />
+        </div>
+      ) : (
+        <div className={styles['product-btn-wrapper']}>
+          <MainButton type="text" text="Add to cart" callBack={() => {}} />
+        </div>
+      )}
+    </>
   )
 }

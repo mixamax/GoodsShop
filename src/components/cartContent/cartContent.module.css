@@ -79,3 +79,12 @@
   border-top: 1px solid #c4c4c4;
   padding-top: 10px;
 }
+
+.no-items {
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 600;
+  color: var(--tertiary-color);
+  margin-top: 48px;
+  margin: 0 auto;
+}

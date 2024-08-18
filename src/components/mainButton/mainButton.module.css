@@ -16,10 +16,6 @@
   background-color: var(--button-hover-bgcolor);
 }
 
-.button:disabled {
-  background-color: var(--button-disabled-bgcolor);
-}
-
 .text {
   font-size: 16px;
   line-height: 22px;
@@ -36,4 +32,9 @@
 .largeIcon {
   padding: 20px;
   height: 62px;
+}
+
+.disabled {
+  background-color: var(--button-disabled-bgcolor);
+  pointer-events: none;
 }
