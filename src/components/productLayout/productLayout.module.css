@@ -1,0 +1,20 @@
+.product-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 48px auto;
+  display: flex;
+  gap: 40px;
+}
+
+@media screen and (max-width: 1220px) {
+  .product-container {
+    padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .product-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
