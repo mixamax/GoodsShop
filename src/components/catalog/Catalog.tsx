@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useGetGoodsByTitleQuery } from '../../store/goodsApi'
+import { useGetGoodsByTitleQuery } from '../../services/apiServices/goodsApi'
 import { CatalogItem } from '../catalogItem/CatalogItem'
 import { MainButton } from '../mainButton/MainButton'
 import styles from './catalog.module.css'

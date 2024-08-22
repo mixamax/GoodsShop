@@ -3,7 +3,7 @@ import { ProductDescription } from '../components/productDescription/ProductDesc
 import { ProductFoto } from '../components/productFoto/ProductFoto'
 import { ProductLayout } from '../components/productLayout/ProductLayout'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
-import { useGetProductByIdQuery } from '../store/productApi'
+import { useGetProductByIdQuery } from '../services/apiServices/productApi'
 import { ErrorContent } from '../components/errorContent/ErrorContent'
 
 export function ProductPage() {

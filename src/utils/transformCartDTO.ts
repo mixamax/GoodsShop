@@ -14,3 +14,25 @@ export function transformCartDTO(data: IResponseCartDTO): IResponseCartData {
     },
   }
 }
+
+// {discountedTotal
+// :
+// 13576
+// id
+// :
+// 15
+// products
+// :
+// (5) [{…}, {…}, {…}, {…}, {…}]
+// total
+// :
+// 13641.3
+// totalProducts
+// :
+// 5
+// totalQuantity
+// :
+// 20
+// userId
+// :
+// 11}

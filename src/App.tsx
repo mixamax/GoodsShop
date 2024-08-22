@@ -7,6 +7,7 @@ import { HomePage } from './pages/HomePage'
 import { ProductPage } from './pages/ProductPage'
 import { CartPage } from './pages/CartPage'
 import { Page404 } from './pages/Page404'
+import { LoginPage } from './pages/LoginPage'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <Page404 />,
+      },
+      {
+        path: 'login',
+        element: <LoginPage />,
       },
     ],
   },

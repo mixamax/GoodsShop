@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { IProduct } from '../../models/productModel'
 import { useAppSelector } from '../../hooks/storeHooks'
 import { getDiscountPrice } from '../../utils/getDiscountPrice'
+import { ButtonGroup } from '../buttonGroup/ButtonGroup'
 
 type Props = {
   product: IProduct
@@ -70,7 +71,12 @@ export function CatalogItem({ product }: Props) {
             ${getDiscountPrice(product.price, product.discountPercentage)}
           </span>
         </div>
-        <ButtonGroup quantity={quantity} />
+        <ButtonGroup
+          place="catalog"
+          quantity={quantity}
+          productId={product.id}
+          cartId={cart?.id}
+        />
       </div>
     </div>
   )
@@ -91,34 +97,34 @@ function isButton(e: MouseEvent) {
   return false
 }
 
-function ButtonGroup({ quantity }: { quantity: number }) {
-  return (
-    <>
-      {quantity > 0 ? (
-        <div className={styles['catalogItem-btn-wrapper']}>
-          <MainButton
-            type="smallIcon"
-            icon="minus"
-            callBack={() => console.log('click minus')}
-          />
-          <span className={styles['catalogItem-quantity']}>
-            {quantity} {plural(quantity)}
-          </span>
-          <MainButton
-            type="smallIcon"
-            icon="plus"
-            callBack={() => console.log('click plus')}
-          />
-        </div>
-      ) : (
-        <div className={styles['catalogItem-btn-wrapper']}>
-          <MainButton
-            type="smallIcon"
-            icon="cart"
-            callBack={() => console.log('click Add to cart')}
-          />
-        </div>
-      )}
-    </>
-  )
-}
+// function ButtonGroup({ quantity }: { quantity: number }) {
+//   return (
+//     <>
+//       {quantity > 0 ? (
+//         <div className={styles['catalogItem-btn-wrapper']}>
+//           <MainButton
+//             type="smallIcon"
+//             icon="minus"
+//             callBack={() => console.log('click minus')}
+//           />
+//           <span className={styles['catalogItem-quantity']}>
+//             {quantity} {plural(quantity)}
+//           </span>
+//           <MainButton
+//             type="smallIcon"
+//             icon="plus"
+//             callBack={() => console.log('click plus')}
+//           />
+//         </div>
+//       ) : (
+//         <div className={styles['catalogItem-btn-wrapper']}>
+//           <MainButton
+//             type="smallIcon"
+//             icon="cart"
+//             callBack={() => console.log('click Add to cart')}
+//           />
+//         </div>
+//       )}
+//     </>
+//   )
+// }

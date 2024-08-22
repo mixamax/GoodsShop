@@ -1,9 +1,8 @@
-import { MainButton } from '../mainButton/MainButton'
 import styles from './productDescription.module.css'
 import { IProduct } from '../../models/productModel'
 import { getDiscountPrice } from '../../utils/getDiscountPrice'
-import plural from '../../utils/plural'
 import { useAppSelector } from '../../hooks/storeHooks'
+import { ButtonGroup } from '../buttonGroup/ButtonGroup'
 
 type Props = {
   product: IProduct
@@ -56,7 +55,12 @@ export function ProductDescription({ product }: Props) {
               Your discount:&nbsp;<b>{product.discountPercentage}%</b>
             </div>
           </div>
-          <ButtonGroup quantity={quantity} />
+          <ButtonGroup
+            quantity={quantity}
+            place="product"
+            cartId={cart?.id}
+            productId={product.id}
+          />
         </div>
       </div>
     </div>
@@ -80,33 +84,5 @@ function Star({ active }: StarProps) {
         fill={active ? '#F14F4F' : '#D5D5D5'}
       />
     </svg>
-  )
-}
-
-function ButtonGroup({ quantity }: { quantity: number }) {
-  return (
-    <>
-      {quantity > 0 ? (
-        <div className={styles['product-btn-wrapper']}>
-          <MainButton
-            type="largeIcon"
-            icon="minus"
-            callBack={() => console.log('click minus')}
-          />
-          <span className={styles['product-quantity']}>
-            {quantity} {plural(quantity)}
-          </span>
-          <MainButton
-            type="largeIcon"
-            icon="plus"
-            callBack={() => console.log('click plus')}
-          />
-        </div>
-      ) : (
-        <div className={styles['product-btn-wrapper']}>
-          <MainButton type="text" text="Add to cart" callBack={() => {}} />
-        </div>
-      )}
-    </>
   )
 }

@@ -88,10 +88,10 @@
   align-items: center;
 }
 
-.catalogItem-btn-wrapper {
+/* .catalogItem-btn-wrapper {
   max-width: 188px;
   display: flex;
-}
+} */
 
 .catalogItem-figcaption_hovered {
   opacity: 0.25;
@@ -101,10 +101,10 @@
   text-decoration-color: inherit;
 }
 
-.catalogItem-quantity {
+/* .catalogItem-quantity {
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 88px;
-}
+} */
