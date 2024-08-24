@@ -53,6 +53,7 @@ export function Login() {
           onChange={onChangeUserValue}
         />
         <button
+          name="submit"
           type="submit"
           className={styles['login-btn']}
           disabled={isLoading}

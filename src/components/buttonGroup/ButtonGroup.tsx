@@ -4,25 +4,25 @@ import { ICart, ICartProduct } from '../../models/cartModel'
 import plural from '../../utils/plural'
 import { MainButton } from '../mainButton/MainButton'
 import useButtonAction from '../../hooks/useButtonAction'
+import { IProduct } from '../../models/productModel'
 
 type ButtonGroupProps = {
   place: 'cart' | 'catalog' | 'product'
   productId: ICartProduct['id']
   quantity: ICartProduct['quantity']
   cartId: ICart['id'] | undefined
+  stock?: IProduct['stock']
 }
 export function ButtonGroup({
   quantity,
   cartId,
   productId,
   place,
+  stock,
 }: ButtonGroupProps) {
   const isUpdateLoading = useAppSelector((state) => state.cart.isUpdateLoading)
-  const { incrementProduct, decrementProduct, deleteProduct } = useButtonAction(
-    cartId,
-    productId,
-    quantity
-  )
+  const { isPlusDisabled, incrementProduct, decrementProduct, deleteProduct } =
+    useButtonAction(cartId, productId, quantity, stock)
 
   return (
     <>
@@ -40,7 +40,7 @@ export function ButtonGroup({
             {quantity} {plural(quantity)}
           </span>
           <MainButton
-            disabled={isUpdateLoading === 'pending'}
+            disabled={isUpdateLoading === 'pending' || isPlusDisabled}
             type={place === 'product' ? 'largeIcon' : 'smallIcon'}
             icon="plus"
             callBack={() => {

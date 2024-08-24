@@ -76,6 +76,7 @@ export function CatalogItem({ product }: Props) {
           quantity={quantity}
           productId={product.id}
           cartId={cart?.id}
+          stock={product.stock}
         />
       </div>
     </div>

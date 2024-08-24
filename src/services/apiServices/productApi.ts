@@ -8,7 +8,10 @@ export const productApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
   endpoints: (builder) => ({
     getProductById: builder.query<IProduct, string>({
-      query: (id) => `/products/${id}`,
+      query: (id) => ({
+        url: `/products/${id}`,
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      }),
       transformResponse: (response: IProductDTO): IProduct =>
         transformProductDTO(response),
     }),

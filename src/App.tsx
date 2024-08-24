@@ -8,6 +8,7 @@ import { ProductPage } from './pages/ProductPage'
 import { CartPage } from './pages/CartPage'
 import { Page404 } from './pages/Page404'
 import { LoginPage } from './pages/LoginPage'
+import { Protected } from './components/protected/Protected'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
       },
     ],
   },
+  //   {
+  //     path: 'login',
+  //     element: (
+  //       <Protected redirectTo={'/'}>
+  //         <LoginPage />
+  //       </Protected>
+  //     ),
+  //   },
 ])
 
 function App() {

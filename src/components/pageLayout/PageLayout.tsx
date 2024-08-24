@@ -4,6 +4,11 @@ import styles from './pageLayout.module.css'
 import { useInit } from '../../hooks/useInit'
 import { LoginPage } from '../../pages/LoginPage'
 
+export interface IOutletContext {
+  isSession: boolean
+  isLoading: boolean
+}
+
 export function PageLayout() {
   const { isSession, isLoading, userFullName } = useInit()
 

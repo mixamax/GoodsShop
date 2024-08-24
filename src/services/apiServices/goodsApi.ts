@@ -10,8 +10,12 @@ export const goodsApi = createApi({
       IResponseProductsDTO,
       { title: string; limit: number }
     >({
-      query: ({ title, limit }) =>
-        `/products/search?q=${title}&limit=${limit}&skip=${0}`,
+      query: ({ title, limit }) => ({
+        url: `/products/search?q=${title}&limit=${limit}&skip=${0}`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }),
     }),
   }),
 })

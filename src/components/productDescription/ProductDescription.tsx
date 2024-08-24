@@ -60,6 +60,7 @@ export function ProductDescription({ product }: Props) {
             place="product"
             cartId={cart?.id}
             productId={product.id}
+            stock={product.stock}
           />
         </div>
       </div>

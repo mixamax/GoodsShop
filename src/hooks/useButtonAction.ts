@@ -4,13 +4,25 @@ import {
   ICartProduct,
   IRequestChangeProductQuantity,
 } from '../models/cartModel'
+import { IProduct } from '../models/productModel'
 import { updateCart } from '../store/cartSlice'
+import { useEffect, useState } from 'react'
 
 export default function useButtonAction(
   cartId: ICart['id'] | undefined,
   productId: ICartProduct['id'],
-  quantity: ICartProduct['quantity']
+  quantity: ICartProduct['quantity'],
+  stock?: IProduct['stock']
 ) {
+  const [isPlusDisabled, setIsPlusDisabled] = useState(false)
+  useEffect(() => {
+    if (stock && quantity >= stock) {
+      setIsPlusDisabled(true)
+    } else {
+      setIsPlusDisabled(false)
+    }
+  }, [stock, quantity])
+
   const existCartProducts = useAppSelector((state) => state.cart.cart?.products)
   let requestProductsArray: IRequestChangeProductQuantity[] = []
   const isProductInCart = existCartProducts?.find(
@@ -30,7 +42,6 @@ export default function useButtonAction(
   const incrementProduct = () => {
     if (!cartId) return
     dispatch(
-      //   updateCart({ cartId, data: [{ id: productId, quantity: quantity + 1 }] })
       updateCart({
         cartId,
         data: requestProductsArray.map((product) => {
@@ -73,5 +84,5 @@ export default function useButtonAction(
     )
   }
 
-  return { incrementProduct, decrementProduct, deleteProduct }
+  return { isPlusDisabled, incrementProduct, decrementProduct, deleteProduct }
 }
