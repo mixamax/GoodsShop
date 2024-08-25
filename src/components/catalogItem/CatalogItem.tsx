@@ -4,10 +4,12 @@ import { MainButton } from '../mainButton/MainButton'
 import { MouseEvent, useState } from 'react'
 import plural from '../../utils/plural'
 import { useNavigate } from 'react-router-dom'
+import { IProduct } from '../../models/productModel'
+import { useAppSelector } from '../../hooks/storeHooks'
+import { getDiscountPrice } from '../../utils/getDiscountPrice'
 
-const productID = 1
 type Props = {
-  quantity: number
+  product: IProduct
 }
 //добавить дефолтную картинку
 const addDefaultImage = (
@@ -15,10 +17,12 @@ const addDefaultImage = (
 ) => {
   event.currentTarget.src = imgURL
 }
-export function CatalogItem({ quantity }: Props) {
+export function CatalogItem({ product }: Props) {
   const [hovered, setHovered] = useState(false)
+  const { cart } = useAppSelector((state) => state.cart)
   const navigate = useNavigate()
-
+  const quantity =
+    cart?.products.find((item) => item.id === product.id)?.quantity || 0
   const onMouseOver = (e: MouseEvent) => {
     if (isButton(e)) {
       setHovered(false)
@@ -30,7 +34,7 @@ export function CatalogItem({ quantity }: Props) {
     if (isButton(e)) {
       return
     }
-    navigate(`/product/${productID}`)
+    navigate(`/product/${product.id}`)
   }
   return (
     <div
@@ -39,13 +43,11 @@ export function CatalogItem({ quantity }: Props) {
       onClick={onNavigateToProduct}
       className={styles['catalogItem-container']}
     >
-      <div
-        className={`${styles['img-wrapper']} ${hovered && styles['img-wrapper_hovered']}`}
-      >
+      <div className={styles['img-wrapper']}>
         <figure className={styles['catalogItem-figure']}>
           <img
             className={styles['catalogItem-img']}
-            src={imgURL}
+            src={product.thumbnail}
             alt="фото товара"
             loading="lazy"
             onError={addDefaultImage}
@@ -62,9 +64,11 @@ export function CatalogItem({ quantity }: Props) {
           <h3
             className={`${styles['catalogItem-title']} ${hovered && styles['catalogItem-title_hovered']}`}
           >
-            Essence Mascara Lash Princess
+            {product.title}
           </h3>
-          <span className={styles['catalogItem-price']}>$110</span>
+          <span className={styles['catalogItem-price']}>
+            ${getDiscountPrice(product.price, product.discountPercentage)}
+          </span>
         </div>
         <ButtonGroup quantity={quantity} />
       </div>
@@ -87,7 +91,7 @@ function isButton(e: MouseEvent) {
   return false
 }
 
-function ButtonGroup({ quantity }: Props) {
+function ButtonGroup({ quantity }: { quantity: number }) {
   return (
     <>
       {quantity > 0 ? (
@@ -97,7 +101,9 @@ function ButtonGroup({ quantity }: Props) {
             icon="minus"
             callBack={() => console.log('click minus')}
           />
-          <span className={styles['catalogItem-quantity']}>2 {plural(2)}</span>
+          <span className={styles['catalogItem-quantity']}>
+            {quantity} {plural(quantity)}
+          </span>
           <MainButton
             type="smallIcon"
             icon="plus"

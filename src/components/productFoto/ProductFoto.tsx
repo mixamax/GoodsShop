@@ -1,7 +1,7 @@
 import styles from './productFoto.module.css'
 import productFotoURL from '../../assets/images/productImg.jpg'
+import { useState } from 'react'
 
-const smallFotos = [1, 2, 3, 4, 5, 6]
 //добавить дефолтную картинку
 const addDefaultImage = (
   event: React.SyntheticEvent<HTMLImageElement, Event>
@@ -9,30 +9,42 @@ const addDefaultImage = (
   event.currentTarget.src = productFotoURL
 }
 
-export function ProductFoto() {
+type Props = {
+  images: string[]
+}
+
+export function ProductFoto({ images }: Props) {
+  const [activeImage, setActiveImage] = useState(0)
   return (
     <div className={styles['gallery-block-container']}>
       <div className={styles['big-foto-container']}>
         <img
           className={styles['big-foto']}
-          src={productFotoURL}
+          src={images[activeImage]}
           alt="фото товара"
           onError={addDefaultImage}
           loading="lazy"
         />
       </div>
       <div className={styles['small-fotos-container']}>
-        {smallFotos.map((item) => (
-          <div key={item} className={styles['small-foto-container']}>
-            <img
-              className={styles['small-foto']}
-              src={productFotoURL}
-              alt="фото товара"
-              onError={addDefaultImage}
-              loading="lazy"
-            />
-          </div>
-        ))}
+        {images.length > 1 &&
+          images.map((url, index) => (
+            <div
+              key={url}
+              className={`${styles['small-foto-container']} ${
+                activeImage === index && styles['small-foto-container_active']
+              }`}
+              onClick={() => setActiveImage(index)}
+            >
+              <img
+                className={styles['small-foto']}
+                src={url}
+                alt="фото товара"
+                onError={addDefaultImage}
+                loading="lazy"
+              />
+            </div>
+          ))}
       </div>
     </div>
   )

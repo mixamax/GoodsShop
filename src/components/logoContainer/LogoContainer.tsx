@@ -1,6 +1,8 @@
 import styles from './logoContainer.module.css'
 import cartIconURL from '../../assets/images/cartIcon.svg'
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
+import { useAppSelector } from '../../hooks/storeHooks'
+import { CartQuantity } from './cartQuantity.ts/CartQuantity'
 
 const logo = 'Goods4you'
 
@@ -42,6 +44,9 @@ export function LogoContainer({ position }: Props) {
 }
 
 function HeaderNavigation({ scrollToElement, navigate }: Navigation) {
+  const cart = useAppSelector((state) => state.cart.cart)
+  const totalItemsCount = cart?.totalItemsCount
+
   return (
     <nav className={styles.nav} aria-labelledby="primary-navigation">
       <ul className={styles['custom-ul']}>
@@ -54,7 +59,9 @@ function HeaderNavigation({ scrollToElement, navigate }: Navigation) {
             src={cartIconURL}
             alt="корзина"
           />
-          <div className={styles['cart-header-quantity']}>1</div>
+          {totalItemsCount && (
+            <CartQuantity totalItemsCount={totalItemsCount} />
+          )}
         </li>
         <li>Johnson Smith</li>
       </ul>

@@ -11,6 +11,7 @@ type ButtonParams = {
   type: 'text' | 'smallIcon' | 'largeIcon'
   text?: string
   icon?: 'plus' | 'minus' | 'cart'
+  disabled?: boolean
 }
 type MainButtonProps = ButtonParams & {
   callBack: () => void
@@ -36,11 +37,14 @@ function CompoundButton({ children, buttonProps }: CompoundButtonProps) {
     type: buttonProps.type,
     icon: buttonProps.icon,
     text: buttonProps.text,
+    disabled: buttonProps.disabled,
   }
   return (
     <ButtonContext.Provider value={value}>
       <button
-        className={`${styles.button} ${styles[value.type]}`}
+        className={`${styles.button} ${styles[value.type]} ${
+          buttonProps.disabled ? styles.disabled : ''
+        }`}
         onClick={buttonProps.callBack}
       >
         {children}
