@@ -6,9 +6,13 @@ import { useNavigate } from 'react-router-dom'
 
 export const useInit = () => {
   const [isSession, setIsSession] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isInitError, setInitError] = useState(false)
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const [getUser, { isLoading, data }] = authApi.useLazyGetCurrentUserQuery()
+
+  const [getUser, { data }] = authApi.useLazyGetCurrentUserQuery()
 
   const token = localStorage.getItem('token')
 
@@ -18,20 +22,24 @@ export const useInit = () => {
         if (value.data?.id) {
           dispatch(fetchCartById(value.data.id))
           setIsSession(true)
+          setIsLoading(false)
         } else {
+          setInitError(true)
           setIsSession(false)
-          navigate('/login')
+          setIsLoading(false)
         }
       })
     } else {
-      setIsSession(false)
       navigate('/login')
+      setIsLoading(false)
+      setIsSession(false)
     }
-  }, [token, getUser])
+  }, [token])
 
   return {
     isSession,
     isLoading,
+    isInitError,
     userFullName: data?.firstName + ' ' + data?.lastName,
   }
 }

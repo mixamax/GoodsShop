@@ -1,5 +1,3 @@
-// import { useState } from 'react'
-// import './App.css'
 import { PageLayout } from './components/pageLayout/PageLayout'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
@@ -8,7 +6,6 @@ import { ProductPage } from './pages/ProductPage'
 import { CartPage } from './pages/CartPage'
 import { Page404 } from './pages/Page404'
 import { LoginPage } from './pages/LoginPage'
-import { Protected } from './components/protected/Protected'
 
 const router = createBrowserRouter([
   {
@@ -38,14 +35,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  //   {
-  //     path: 'login',
-  //     element: (
-  //       <Protected redirectTo={'/'}>
-  //         <LoginPage />
-  //       </Protected>
-  //     ),
-  //   },
 ])
 
 function App() {
