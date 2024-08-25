@@ -15,7 +15,7 @@ export function ProductPage() {
 
   return (
     <ProductLayout>
-      <ProductFoto images={data.images} />
+      <ProductFoto images={data.images} title={data.title} />
       <ProductDescription product={data} />
     </ProductLayout>
   )

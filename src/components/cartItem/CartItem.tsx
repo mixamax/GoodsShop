@@ -30,7 +30,7 @@ export function CartItem({ product, cartId }: Props) {
             className={styles['foto']}
             src={product.thumbnail}
             loading="lazy"
-            alt="фото товара"
+            alt={`${product.title} image`}
             onError={addDefaultImage}
           />
         </div>

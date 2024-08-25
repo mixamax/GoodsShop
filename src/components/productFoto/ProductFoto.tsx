@@ -11,9 +11,10 @@ const addDefaultImage = (
 
 type Props = {
   images: string[]
+  title: string
 }
 
-export function ProductFoto({ images }: Props) {
+export function ProductFoto({ images, title }: Props) {
   const [activeImage, setActiveImage] = useState(0)
   return (
     <div className={styles['gallery-block-container']}>
@@ -21,7 +22,7 @@ export function ProductFoto({ images }: Props) {
         <img
           className={styles['big-foto']}
           src={images[activeImage]}
-          alt="фото товара"
+          alt={`${title} image`}
           onError={addDefaultImage}
           loading="lazy"
         />
@@ -39,7 +40,7 @@ export function ProductFoto({ images }: Props) {
               <img
                 className={styles['small-foto']}
                 src={url}
-                alt="фото товара"
+                alt={`${title} image number ${index + 1}`}
                 onError={addDefaultImage}
                 loading="lazy"
               />
