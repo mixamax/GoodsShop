@@ -1,6 +1,5 @@
 ## React + TypeScript + Vite
 
-## :three: задание
 
 ### команда для запуска в dev режиме: `npm run dev`
 
