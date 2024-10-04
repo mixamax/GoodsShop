@@ -7,14 +7,16 @@ import { CartQuantity } from './cartQuantity.ts/CartQuantity'
 const logo = 'Goods4you'
 
 type Props = {
-  position: 'header' | 'footer'
+  position: 'header' | 'footer' | 'logIn'
+  userFullName?: string
 }
 
 type Navigation = {
   scrollToElement: (targetId: string, targetPath: string) => void
   navigate: NavigateFunction
+  userFullName: string
 }
-export function LogoContainer({ position }: Props) {
+export function LogoContainer({ position, userFullName }: Props) {
   const navigate = useNavigate()
   const scrollToElement = (targetId: string, targetPath: string) => {
     if (window.location.pathname === targetPath) {
@@ -31,19 +33,25 @@ export function LogoContainer({ position }: Props) {
           <span className={styles.logo}>{logo}</span>
         </Link>
       </div>
-      {position === 'header' ? (
+      {position === 'header' && (
         <HeaderNavigation
           scrollToElement={scrollToElement}
           navigate={navigate}
+          userFullName={userFullName || ''}
         />
-      ) : (
+      )}
+      {position === 'footer' && (
         <FooterNavigation scrollToElement={scrollToElement} />
       )}
     </div>
   )
 }
 
-function HeaderNavigation({ scrollToElement, navigate }: Navigation) {
+function HeaderNavigation({
+  scrollToElement,
+  navigate,
+  userFullName,
+}: Navigation) {
   const cart = useAppSelector((state) => state.cart.cart)
   const totalItemsCount = cart?.totalItemsCount
 
@@ -63,7 +71,7 @@ function HeaderNavigation({ scrollToElement, navigate }: Navigation) {
             <CartQuantity totalItemsCount={totalItemsCount} />
           )}
         </li>
-        <li>Johnson Smith</li>
+        <li>{userFullName}</li>
       </ul>
     </nav>
   )

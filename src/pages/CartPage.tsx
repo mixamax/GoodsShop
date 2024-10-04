@@ -7,7 +7,6 @@ export function CartPage() {
   useDocumentTitle('My cart | Goods4you')
   const { cart, loading } = useAppSelector((state) => state.cart)
 
-  console.log(cart)
   return (
     <CartLayout>
       {loading === 'succeeded' && <CartContent cart={cart} />}

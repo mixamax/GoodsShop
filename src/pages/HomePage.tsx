@@ -8,7 +8,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle'
 export function HomePage() {
   const location = useLocation()
   const navigate = useNavigate()
-  useDocumentTitle('Home | Goods4you')
+  useDocumentTitle('Catalog | Goods4you')
 
   useEffect(() => {
     const scrollTarget = location.state?.scrollTarget

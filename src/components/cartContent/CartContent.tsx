@@ -14,7 +14,7 @@ export function CartContent({ cart }: Props) {
     <div className={styles['cart-content-container']}>
       <div className={styles['cart-items-container']}>
         {products.map((product) => (
-          <CartItem key={product.id} product={product} />
+          <CartItem key={product.id} product={product} cartId={cart?.id} />
         ))}
       </div>
       <div className={styles['cart-price-container']}>
@@ -30,7 +30,7 @@ export function CartContent({ cart }: Props) {
         >
           <span className={styles['semi-bold']}>Price without discount</span>
           <span className={styles['bold-and-dark']}>
-            ${cart.priceWithoutDiscount}
+            ${cart.priceWithoutDiscount.toFixed(2)}
           </span>
         </div>
         <div className={`${styles['cart-price-row']} ${styles['border']}`}>

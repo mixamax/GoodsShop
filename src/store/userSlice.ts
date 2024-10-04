@@ -1,21 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit'
+// import { createSlice } from '@reduxjs/toolkit'
+// import { IUser } from '../models/userModel'
 // import type { PayloadAction } from '@reduxjs/toolkit'
-// import type { RootState } from './store'
+// // import type { RootState } from './store'
 
-export interface IUserState {
-  id: number
-  name: string
-}
+// export interface IUserState {
+//   user: IUser | null
+// }
 
-const initialState: IUserState = {
-  id: 11,
-  name: 'Johnson Smith',
-}
+// const initialState: IUserState = {
+//   user: null,
+// }
 
-export const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {},
-})
+// export const userSlice = createSlice({
+//   name: 'user',
+//   initialState,
+//   reducers: {
+//     setUser: (state, action: PayloadAction<IUser>) => {
+//       state.user = action.payload
+//     },
+//     clearUser: (state) => {
+//       state.user = null
+//     },
+//   },
+// })
 
-export default userSlice.reducer
+// export default userSlice.reducer

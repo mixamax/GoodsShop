@@ -1,8 +1,9 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './store'
-import { ICart } from '../models/cartModel'
+import { ICart, IRequestChangeProductQuantity } from '../models/cartModel'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { getCartByID } from '../services/apiServices/cartApiService'
+import {
+  getCartByID,
+  updateCartByID,
+} from '../services/apiServices/cartApiService'
 
 export const fetchCartById = createAsyncThunk(
   'cart/fetchByIdStatus',
@@ -15,14 +16,30 @@ export const fetchCartById = createAsyncThunk(
   }
 )
 
+export const updateCart = createAsyncThunk(
+  'cart/updateCartStatus',
+  async (
+    cartData: { cartId: number; data: IRequestChangeProductQuantity[] },
+    thunkAPI
+  ) => {
+    const response = await updateCartByID(cartData.cartId, cartData.data)
+    if ('errorMessage' in response) {
+      return thunkAPI.rejectWithValue(response)
+    }
+    return response
+  }
+)
+
 export interface CartState {
   cart: ICart | null
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+  isUpdateLoading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState: CartState = {
   cart: null,
   loading: 'idle',
+  isUpdateLoading: 'idle',
 } satisfies CartState as CartState
 
 export const cartSlice = createSlice({
@@ -41,6 +58,16 @@ export const cartSlice = createSlice({
       .addCase(fetchCartById.rejected, (state) => {
         state.loading = 'failed'
         state.cart = null
+      })
+      .addCase(updateCart.fulfilled, (state, action) => {
+        state.cart = action.payload.cart
+        state.isUpdateLoading = 'succeeded'
+      })
+      .addCase(updateCart.pending, (state) => {
+        state.isUpdateLoading = 'pending'
+      })
+      .addCase(updateCart.rejected, (state) => {
+        state.isUpdateLoading = 'failed'
       })
   },
 })

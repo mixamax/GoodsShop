@@ -39,3 +39,8 @@ export interface IResponseCartDTO {
 export interface IResponseCartData {
   cart: ICart | null
 }
+
+export interface IRequestChangeProductQuantity {
+  id: number
+  quantity: number
+}

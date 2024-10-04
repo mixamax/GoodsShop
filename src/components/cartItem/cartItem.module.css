@@ -1,6 +1,5 @@
 .cart-item-container {
   width: 696px;
-  /* height: 124px; */
   padding: 12px;
   display: flex;
   justify-content: space-between;
@@ -41,6 +40,9 @@
   line-height: 22px;
   font-weight: 600;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .price {
@@ -50,37 +52,6 @@
   margin-top: 2px;
 }
 
-.buttons-field {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 286px;
-  height: 50px;
-}
-
-.flexEnd {
-  justify-content: flex-end;
-  padding-right: 12px;
-}
-
-.delete-btn {
-  color: var(--tertiary-color);
-  font-family: Jost, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  height: 100%;
-  padding-left: 26px;
-  padding-right: 14px;
-}
-
-.delete-btn:hover {
-  text-decoration: underline;
-  color: var(--primary-color);
-}
-
 @media screen and (max-width: 770px) {
   .cart-item-container {
     flex-wrap: wrap;
@@ -88,9 +59,9 @@
     height: auto;
   }
 
-  .buttons-field {
+  /* .buttons-field {
     margin-top: 10px;
-  }
+  } */
 }
 
 .noHover:hover {
