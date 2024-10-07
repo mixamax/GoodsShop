@@ -4,8 +4,8 @@ import { authApi } from '../../services/apiServices/authApi'
 import { useNavigate } from 'react-router-dom'
 
 const userInitValue = {
-  username: '',
-  password: '',
+  username: 'liamg',
+  password: 'liamgpass',
 }
 export function Login() {
   const [user, setUser] = useState(userInitValue)
@@ -28,7 +28,7 @@ export function Login() {
     }
     getToken(user).then((value) => {
       if (value.data) {
-        localStorage.setItem('token', value.data.token)
+        localStorage.setItem('token', value.data.accessToken)
         setUser(userInitValue)
         navigate('/')
       }
@@ -44,6 +44,7 @@ export function Login() {
           type="text"
           placeholder="Username"
           onChange={onChangeUserValue}
+          defaultValue={userInitValue.username}
         />
         <input
           name="password"
@@ -51,6 +52,7 @@ export function Login() {
           type="password"
           placeholder="Password"
           onChange={onChangeUserValue}
+          defaultValue={userInitValue.password}
         />
         <button
           name="submit"
