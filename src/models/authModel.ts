@@ -6,7 +6,7 @@ export interface IAuthResponse {
   lastName: string
   gender: string
   image: string
-  token: string
+  accessToken: string
   refreshToken: string
 }
 export interface IBodyRequest {
